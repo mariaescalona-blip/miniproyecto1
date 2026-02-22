@@ -9,3 +9,9 @@ Sprint 0:
 - Base técnica
 - Backlog refinado
 - Setup repositorio
+
+## Convención de ramas
+
+main → estable
+develop → integración
+feature/nombre-feature → nuevas funcionalidades
