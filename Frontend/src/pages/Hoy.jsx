@@ -1,3 +1,8 @@
 export default function Hoy() {
-  return <h1>Vista Hoy - En construcción</h1>;
+  return (
+    <div style={{ padding: "20px" }}>
+      <h1>Vista Hoy</h1>
+      <p>Aquí se mostrarán las actividades del día.</p>
+    </div>
+  );
 }
