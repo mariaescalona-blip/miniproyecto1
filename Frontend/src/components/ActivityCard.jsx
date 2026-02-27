@@ -1,22 +1,27 @@
-function ActivityCard({ titulo, categoria, fecha, estado }) {
+import "./ActivityCard.css";
+
+export default function ActivityCard({ activity, onToggle }) {
   return (
-    <div
-      style={{
-        border: "1px solid #444",
-        padding: "12px",
-        borderRadius: "8px",
-        marginBottom: "12px",
-      }}
-    >
-      <strong>
-        {titulo} - {categoria}
-      </strong>
-      <br />
-      Fecha: {fecha}
-      <br />
-      Estado: {estado === "Pendiente" ? "⏳ Pendiente" : "✅ Completada"}
+    <div className={`card ${activity.estado === "Completada" ? "done" : ""}`}>
+      <div className="card-header">
+        <h3>{activity.titulo}</h3>
+      </div>
+
+      <div className="card-body">
+        <p className="materia">{activity.materia}</p>
+        <p className="fecha">{activity.fecha}</p>
+
+        <span
+          className={`badge ${
+            activity.estado === "Completada"
+              ? "badge-success"
+              : "badge-pending"
+          }`}
+          onClick={onToggle}
+        >
+          {activity.estado}
+        </span>
+      </div>
     </div>
   );
 }
-
-export default ActivityCard;
