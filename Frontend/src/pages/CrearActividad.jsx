@@ -1,21 +1,21 @@
-import { useNavigate } from "react-router-dom";
-import { addActivity } from "../services/activitiesService";
-import ActivityForm from "../components/ActivityForm";
+import React from 'react'
+import ActivityForm from '../components/ActivityForm.jsx'
+import { addActivity } from '../services/activitiesService.js'
+import { useNavigate } from 'react-router-dom'
 
-function CrearActividad() {
-  const navigate = useNavigate();
+export default function CrearActividad() {
+  const navigate = useNavigate()
 
-  const handleCreate = (data) => {
-    addActivity(data);
-    navigate("/");
-  };
+  function handleCreate(data) {
+    addActivity(data)
+    // luego de guardar vamos a "Hoy"
+    navigate('/')
+  }
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div>
       <h1>Crear Actividad</h1>
       <ActivityForm onSubmit={handleCreate} />
     </div>
-  );
+  )
 }
-
-export default CrearActividad;
