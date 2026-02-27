@@ -1,67 +1,44 @@
 
-import { useState } from "react";
+import React, { useState } from 'react'
 
-function ActivityForm({ onSubmit }) {
-  const [titulo, setTitulo] = useState("");
-  const [categoria, setCategoria] = useState("");
-  const [fecha, setFecha] = useState("");
-  const [error, setError] = useState("");
+export default function ActivityForm({ onSubmit }) {
+  const [title, setTitle] = useState('')
+  const [subject, setSubject] = useState('')
+  const [date, setDate] = useState('')
+  const [status, setStatus] = useState('Pendiente')
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!titulo || !categoria || !fecha) {
-      setError("Todos los campos son obligatorios.");
-      return;
-    }
-
-    setError("");
-    onSubmit({ titulo, categoria, fecha });
-  };
+  function handleSubmit(e) {
+    e.preventDefault()
+    if (!title || !subject || !date) return alert('Completa todos los campos')
+    onSubmit({ title, subject, date, status })
+    setTitle(''); setSubject(''); setDate(''); setStatus('Pendiente')
+  }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="titulo">Título</label>
-        <br />
-        <input
-          id="titulo"
-          value={titulo}
-          onChange={(e) => setTitulo(e.target.value)}
-        />
+    <form onSubmit={handleSubmit} className="card">
+      <div className="form-row">
+        <label>Título</label>
+        <input value={title} onChange={e=>setTitle(e.target.value)} type="text" />
+      </div>
+      <div className="form-row">
+        <label>Materia</label>
+        <input value={subject} onChange={e=>setSubject(e.target.value)} type="text" />
+      </div>
+      <div className="form-row">
+        <label>Fecha</label>
+        <input value={date} onChange={e=>setDate(e.target.value)} type="date" />
+      </div>
+      <div className="form-row">
+        <label>Estado</label>
+        <select value={status} onChange={e=>setStatus(e.target.value)}>
+          <option>Pendiente</option>
+          <option>Completada</option>
+        </select>
       </div>
 
       <div>
-        <label htmlFor="categoria">Categoría</label>
-        <br />
-        <input
-          id="categoria"
-          value={categoria}
-          onChange={(e) => setCategoria(e.target.value)}
-        />
+        <button className="btn" type="submit">Guardar</button>
       </div>
-
-      <div>
-        <label htmlFor="fecha">Fecha</label>
-        <br />
-        <input
-          id="fecha"
-          type="date"
-          value={fecha}
-          onChange={(e) => setFecha(e.target.value)}
-        />
-      </div>
-
-      {error && (
-        <p style={{ color: "red" }} role="alert">
-          {error}
-        </p>
-      )}
-
-      <br />
-      <button type="submit">Guardar</button>
     </form>
-  );
+  )
 }
-
-export default ActivityForm;
