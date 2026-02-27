@@ -1,23 +1,11 @@
-import "../styles/App.css";
+import React from 'react'
 
-export default function ActivityCard({ activity, onToggle }) {
+export default function ActivityCard({ activity }) {
   return (
-    <div className={`card ${activity.estado === "Completada" ? "done" : ""}`}>
-      <h3>{activity.titulo}</h3>
-
-      <p className="materia">{activity.materia}</p>
-      <p className="fecha">{activity.fecha}</p>
-
-      <span
-        className={`badge ${
-          activity.estado === "Completada"
-            ? "badge-success"
-            : "badge-pending"
-        }`}
-        onClick={onToggle}
-      >
-        {activity.estado}
-      </span>
+    <div className="card">
+      <div className="activity-title">{activity.title} - <small style={{fontWeight:400}}>{activity.subject}</small></div>
+      <div className="meta">Fecha: {activity.date}</div>
+      <div className="meta">Estado: {activity.status}</div>
     </div>
-  );
+  )
 }
