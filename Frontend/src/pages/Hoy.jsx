@@ -1,34 +1,47 @@
+import { useState } from "react";
 import ActivityCard from "../components/ActivityCard";
-import { getActivities } from "../services/activitiesService";
 
-function Hoy() {
-  const actividades = getActivities();
+export default function Hoy() {
+  const [actividades, setActividades] = useState([
+    {
+      titulo: "Estudiar React",
+      materia: "Programación Web",
+      fecha: "2026-02-27",
+      estado: "Pendiente",
+    },
+    {
+      titulo: "Hacer ejercicio",
+      materia: "Personal",
+      fecha: "2026-02-27",
+      estado: "Completada",
+    },
+  ]);
 
-  if (actividades.length === 0) {
-    return (
-      <div style={{ padding: "20px" }}>
-        <h1>Vista Hoy</h1>
-        <p>No hay actividades registradas.</p>
-      </div>
-    );
-  }
+  const toggleEstado = (index) => {
+    const nuevas = [...actividades];
+    nuevas[index].estado =
+      nuevas[index].estado === "Pendiente"
+        ? "Completada"
+        : "Pendiente";
+    setActividades(nuevas);
+  };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="container">
       <h1>Vista Hoy</h1>
-      <p>Aquí se mostrarán las actividades del día.</p>
+      <p className="subtitulo">
+        Aquí se mostrarán las actividades del día.
+      </p>
 
-      {actividades.map((actividad) => (
+      {actividades.map((actividad, index) => (
         <ActivityCard
-          key={actividad.id}
-          titulo={actividad.titulo}
-          categoria={actividad.categoria}
-          fecha={actividad.fecha}
-          estado={actividad.estado}
+          key={index}
+          activity={actividad}
+          onToggle={() => toggleEstado(index)}
         />
       ))}
+
+      <button className="fab">+ Crear Actividad</button>
     </div>
   );
 }
-
-export default Hoy;
