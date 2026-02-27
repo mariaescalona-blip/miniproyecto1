@@ -6,36 +6,71 @@ body {
 }
 
 .container {
-  padding: 25px;
-  max-width: 450px;
-  margin: auto;
+  padding: 25px;:root {
+  --bg: #1f1f1f;
+  --card: #2b2b2b;
+  --text: #e6e6e6;
+  --accent: #1e90ff;
 }
 
-h1 {
-  margin-bottom: 5px;
+html,body,#root {
+  height: 100%;
 }
 
-.subtitulo {
-  opacity: 0.7;
-  margin-bottom: 20px;
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
 }
 
-.fab {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #2563eb;
+.app-header {
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  padding: 12px 24px;
+  background: #111;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.brand {
+  font-weight:700;
+  color: var(--text);
+  text-decoration:none;
+  font-size: 20px;
+}
+
+.container {
+  padding: 28px;
+}
+
+/* Cards */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+/* Activity item */
+.activity-title { font-weight:700; margin-bottom:6px; }
+.meta { font-size: 13px; color: #cfcfcf; margin-bottom:6px; }
+
+/* Button */
+.btn {
+  display:inline-block;
+  background: var(--accent);
   color: white;
-  padding: 15px 25px;
-  border-radius: 30px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
   border: none;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.6);
-  transition: 0.3s ease;
+  cursor:pointer;
 }
 
-.fab:hover {
-  background: #1d4ed8;
+/* Form */
+.form-row { margin-bottom: 10px; display:flex; flex-direction:column; }
+input[type="text"], input[type="date"], select {
+  padding:8px; border-radius:6px; border:1px solid rgba(255,255,255,0.08); background:#222; color:var(--text)
 }
