@@ -53,12 +53,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
+import dj_database_url
+
 DATABASES = {
     "default": dj_database_url.parse(
-        "postgresql://postgres:adminproyecto123@db.ucpfienyknheehsaccwu.supabase.co:5432/postgres"
+        "postgresql://postgres:adminproyecto123@db.ucpfienyknheehsaccwu.supabase.co:5432/postgres",
+        conn_max_age=600
     )
 }
-
 STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
