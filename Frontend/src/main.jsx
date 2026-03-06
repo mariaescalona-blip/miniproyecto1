@@ -1,53 +1,41 @@
 /*
-Archivo principal de arranque de la aplicación React.
+Archivo principal que inicia la aplicación React.
 
-Este archivo se encarga de:
+Este archivo:
 
-1. Importar React
-2. Conectar React con el HTML
-3. Activar el sistema de rutas
-4. Renderizar la aplicación completa
+1. Importa React
+2. Conecta React con el HTML
+3. Activa el sistema de rutas
+4. Renderiza la aplicación
 */
 
-import React from "react"; 
-// Importa la librería principal de React
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 
-import ReactDOM from "react-dom/client"; 
-// Permite renderizar la aplicación en el navegador
-
-import { BrowserRouter } from "react-router-dom"; 
-// Permite manejar rutas en la aplicación (SPA)
-
-import App from "./App.jsx"; 
-// Importa el componente principal de la aplicación
-
-import "./styles/global.css"; 
-// Importa los estilos globales del sistema
-
+import App from "./App.jsx";
+import "./styles/global.css";
 
 /*
-ReactDOM.createRoot busca el elemento HTML
-con id "root" dentro de index.html.
-
-Dentro de ese elemento se renderiza toda la aplicación.
+createRoot busca el div con id="root"
+dentro del archivo index.html
 */
-
 ReactDOM.createRoot(document.getElementById("root")).render(
 
   /*
   StrictMode ayuda a detectar errores
-  y mejorar las buenas prácticas en React.
+  durante el desarrollo
   */
-
   <React.StrictMode>
 
-    {/* BrowserRouter habilita la navegación entre páginas */}
+    {/* BrowserRouter habilita la navegación entre rutas */}
     <BrowserRouter>
 
-      {/* App es el componente principal del sistema */}
+      {/* Componente principal */}
       <App />
 
     </BrowserRouter>
 
   </React.StrictMode>
+
 );
