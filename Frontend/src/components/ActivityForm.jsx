@@ -1,44 +1,80 @@
+/*
+Formulario para registrar nuevas actividades.
+*/
 
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
-export default function ActivityForm({ onSubmit }) {
-  const [title, setTitle] = useState('')
-  const [subject, setSubject] = useState('')
-  const [date, setDate] = useState('')
-  const [status, setStatus] = useState('Pendiente')
+import { addActivity } from "../services/activitiesService.js";
 
+export default function ActivityForm() {
+
+  /*
+  Estado que almacena los datos
+  ingresados en el formulario.
+  */
+  const [formData, setFormData] = useState({
+    title: "",
+    subject: "",
+    date: "",
+    status: "Pendiente"
+  });
+
+  /*
+  Actualiza los valores del formulario
+  cuando el usuario escribe.
+  */
+  function handleChange(e) {
+
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+
+  }
+
+  /*
+  Se ejecuta cuando se envía el formulario.
+  */
   function handleSubmit(e) {
-    e.preventDefault()
-    if (!title || !subject || !date) return alert('Completa todos los campos')
-    onSubmit({ title, subject, date, status })
-    setTitle(''); setSubject(''); setDate(''); setStatus('Pendiente')
+
+    e.preventDefault();
+
+    addActivity(formData);
+
+    alert("Actividad creada");
+
   }
 
   return (
-    <form onSubmit={handleSubmit} className="card">
-      <div className="form-row">
-        <label>Título</label>
-        <input value={title} onChange={e=>setTitle(e.target.value)} type="text" />
-      </div>
-      <div className="form-row">
-        <label>Materia</label>
-        <input value={subject} onChange={e=>setSubject(e.target.value)} type="text" />
-      </div>
-      <div className="form-row">
-        <label>Fecha</label>
-        <input value={date} onChange={e=>setDate(e.target.value)} type="date" />
-      </div>
-      <div className="form-row">
-        <label>Estado</label>
-        <select value={status} onChange={e=>setStatus(e.target.value)}>
-          <option>Pendiente</option>
-          <option>Completada</option>
-        </select>
-      </div>
 
-      <div>
-        <button className="btn" type="submit">Guardar</button>
-      </div>
+    <form onSubmit={handleSubmit}>
+
+      <input
+        type="text"
+        name="title"
+        placeholder="Título"
+        onChange={handleChange}
+      />
+
+      <input
+        type="text"
+        name="subject"
+        placeholder="Materia"
+        onChange={handleChange}
+      />
+
+      <input
+        type="date"
+        name="date"
+        onChange={handleChange}
+      />
+
+      <button type="submit">
+        Guardar
+      </button>
+
     </form>
-  )
+
+  );
+
 }
