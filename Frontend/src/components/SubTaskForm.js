@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { createSubTask } from "../api/api"
+import { createSubTask } from "../services/activitiesService"
 
 function SubTaskForm({ activityId, reload }) {
 
@@ -19,6 +19,7 @@ function SubTaskForm({ activityId, reload }) {
   }
 
   return (
+
     <form onSubmit={handleSubmit}>
 
       <input
@@ -27,9 +28,12 @@ function SubTaskForm({ activityId, reload }) {
         onChange={(e) => setTitulo(e.target.value)}
       />
 
-      <button type="submit">Agregar</button>
+      <button>
+        Agregar
+      </button>
 
     </form>
+
   )
 }
 
