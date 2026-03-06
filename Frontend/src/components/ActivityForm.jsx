@@ -27,6 +27,8 @@ function ActivityForm({ reload }) {
 
     <form onSubmit={handleSubmit}>
 
+      <h2>Crear Actividad</h2>
+
       <input
         placeholder="Título"
         value={titulo}
@@ -45,12 +47,9 @@ function ActivityForm({ reload }) {
         onChange={(e) => setFecha(e.target.value)}
       />
 
-      <button type="submit">
-        Crear actividad
-      </button>
+      <button>Crear</button>
 
     </form>
-
   )
 }
 
