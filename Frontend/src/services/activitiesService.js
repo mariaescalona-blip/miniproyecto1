@@ -1,41 +1,26 @@
-/*
-Servicio que maneja las actividades.
+const API_URL =
+"https://tu-backend.onrender.com/api/activities/"
 
-Se usa localStorage para simular
-una base de datos.
-*/
+export async function getActivities(){
 
-import {seedActivities} from "../data/activities.js"
+const res = await fetch(API_URL)
 
-const KEY="activities"
-
-export function getActivities(){
-
-  let data=localStorage.getItem(KEY)
-
-  if(!data){
-
-    localStorage.setItem(KEY,JSON.stringify(seedActivities))
-
-    return seedActivities
-
-  }
-
-  return JSON.parse(data)
+return res.json()
 
 }
 
-export function addActivity(activity){
+export async function createActivity(activity){
 
-  const activities=getActivities()
+await fetch(API_URL,{
 
-  const newActivity={
-    id:Date.now(),
-    ...activity
-  }
+method:"POST",
 
-  activities.push(newActivity)
+headers:{
+"Content-Type":"application/json"
+},
 
-  localStorage.setItem(KEY,JSON.stringify(activities))
+body:JSON.stringify(activity)
+
+})
 
 }
