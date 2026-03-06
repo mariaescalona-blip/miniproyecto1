@@ -1,60 +1,43 @@
 /*
-Página principal del sistema.
+Vista principal del sistema.
 
-Esta vista muestra las actividades
-registradas para el usuario.
+Aquí se muestran todas las actividades.
 */
 
-import React, { useEffect, useState } from "react";
+import React,{useEffect,useState} from "react";
 
-// Importa el componente visual de cada actividad
 import ActivityCard from "../components/ActivityCard.jsx";
+import {getActivities} from "../services/activitiesService.js";
 
-// Importa el servicio que maneja las actividades
-import { getAll } from "../services/activitiesService.js";
+export default function Hoy(){
 
-export default function Hoy() {
+  const [activities,setActivities]=useState([])
 
-  // Estado que almacenará las actividades
-  const [activities, setActivities] = useState([]);
+  useEffect(()=>{
 
-  /*
-  useEffect se ejecuta cuando
-  el componente se carga por primera vez.
-  */
+    const data=getActivities()
 
-  useEffect(() => {
+    setActivities(data)
 
-    // Obtiene todas las actividades
-    const data = getAll();
+  },[])
 
-    // Guarda las actividades en el estado
-    setActivities(data);
-
-  }, []);
-
-  return (
+  return(
 
     <div>
 
       <h1>Vista Hoy</h1>
 
-      <p>
-        Aquí se muestran las actividades registradas.
-      </p>
+      <p>Aquí se mostrarán las actividades del día.</p>
 
-      {/* Recorre todas las actividades */}
-      {activities.map((activity) => (
-
+      {activities.map(activity=>(
         <ActivityCard
-          key={activity.id}
-          activity={activity}
+        key={activity.id}
+        activity={activity}
         />
-
       ))}
 
     </div>
 
-  );
+  )
 
 }
