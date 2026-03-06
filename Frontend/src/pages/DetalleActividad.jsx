@@ -1,5 +1,8 @@
 /*
-Vista que muestra el detalle de una actividad.
+Vista detallada de una actividad.
+
+Aquí se muestran también
+las subtareas asociadas.
 */
 
 import React from "react";
@@ -8,32 +11,42 @@ import {getActivities} from "../services/activitiesService.js";
 
 export default function DetalleActividad(){
 
-  const {id}=useParams()
+const {id}=useParams()
 
-  const activities=getActivities()
+const activities=getActivities()
 
-  const activity=activities.find(a=>a.id==id)
+const activity=activities.find(a=>a.id==id)
 
-  if(!activity){
+if(!activity){
 
-    return <p>Actividad no encontrada</p>
+return <p>Actividad no encontrada</p>
 
-  }
+}
 
-  return(
+return(
 
-    <div>
+<div>
 
-      <h1>{activity.title}</h1>
+<h1>{activity.title}</h1>
 
-      <p>Materia: {activity.subject}</p>
+<p>Materia: {activity.subject}</p>
 
-      <p>Fecha: {activity.date}</p>
+<p>Fecha: {activity.date}</p>
 
-      <p>Estado: {activity.status}</p>
+<h3>Subtareas</h3>
 
-    </div>
+<ul>
 
-  )
+{activity.subtasks?.map(sub=>(
+<li key={sub.id}>
+{sub.done ? "✅":"⬜"} {sub.title}
+</li>
+))}
+
+</ul>
+
+</div>
+
+)
 
 }
