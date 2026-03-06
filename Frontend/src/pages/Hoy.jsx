@@ -1,43 +1,34 @@
-/*
-Vista principal del sistema.
+import { useEffect, useState } from "react"
+import { getActivities } from "../services/activitiesService"
+import ActivityList from "../components/ActivityList"
 
-Aquí se muestran todas las actividades.
-*/
+function Hoy() {
 
-import React,{useEffect,useState} from "react";
+  const [activities, setActivities] = useState([])
 
-import ActivityCard from "../components/ActivityCard.jsx";
-import {getActivities} from "../services/activitiesService.js";
+  useEffect(() => {
+    loadActivities()
+  }, [])
 
-export default function Hoy(){
-
-  const [activities,setActivities]=useState([])
-
-  useEffect(()=>{
-
-    const data=getActivities()
-
+  const loadActivities = async () => {
+    const data = await getActivities()
     setActivities(data)
+  }
 
-  },[])
-
-  return(
+  return (
 
     <div>
 
-      <h1>Vista Hoy</h1>
+      <h1>Actividades de hoy</h1>
 
-      <p>Aquí se mostrarán las actividades del día.</p>
-
-      {activities.map(activity=>(
-        <ActivityCard
-        key={activity.id}
-        activity={activity}
-        />
-      ))}
+      <ActivityList
+        activities={activities}
+        reload={loadActivities}
+      />
 
     </div>
 
   )
-
 }
+
+export default Hoy
