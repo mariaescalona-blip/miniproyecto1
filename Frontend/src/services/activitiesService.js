@@ -2,6 +2,9 @@ const API_URL = "https://miniproyecto1-6.onrender.com/api"
 
 export const getActivities = async () => {
   const res = await fetch(`${API_URL}/activities/`)
+
+  if (!res.ok) throw new Error("Error cargando actividades")
+
   return res.json()
 }
 
@@ -11,6 +14,8 @@ export const createActivity = async (activity) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(activity)
   })
+
+  if (!res.ok) throw new Error("Error creando actividad")
 
   return res.json()
 }
@@ -28,6 +33,8 @@ export const createSubTask = async (subtask) => {
     body: JSON.stringify(subtask)
   })
 
+  if (!res.ok) throw new Error("Error creando subtarea")
+
   return res.json()
 }
 
@@ -38,10 +45,15 @@ export const toggleSubTask = async (id, completada) => {
     body: JSON.stringify({ completada })
   })
 
+  if (!res.ok) throw new Error("Error actualizando subtarea")
+
   return res.json()
 }
 
 export const getProgress = async () => {
   const res = await fetch(`${API_URL}/progreso/`)
+
+  if (!res.ok) throw new Error("Error obteniendo progreso")
+
   return res.json()
 }
