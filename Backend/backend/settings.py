@@ -57,6 +57,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # 🔵 SUPABASE POSTGRESQL
 
+import dj_database_url
+
 DATABASES = {
     'default': dj_database_url.parse(
         "postgresql://postgres:adminproyecto123@db.ucpfienyknheehsaccwu.supabase.co:5432/postgres"
