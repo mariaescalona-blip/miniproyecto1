@@ -1,9 +1,7 @@
 from rest_framework import serializers
 from .models import Activity, SubTask
 
-
 class SubTaskSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = SubTask
         fields = "__all__"
