@@ -1,55 +1,41 @@
 /*
-Servicio encargado de manejar
-las actividades del sistema.
+Servicio que maneja las actividades.
 
-Actualmente usa localStorage
-para simular una base de datos.
+Se usa localStorage para simular
+una base de datos.
 */
 
-import { seedActivities } from "../data/activities.js";
+import {seedActivities} from "../data/activities.js"
 
-/*
-Clave usada en localStorage
-para guardar las actividades.
-*/
-const KEY = "activities";
+const KEY="activities"
 
-/*
-Obtiene todas las actividades
-guardadas en el navegador.
-*/
-export function getAll() {
+export function getActivities(){
 
-  // Intenta leer los datos
-  let data = localStorage.getItem(KEY);
+  let data=localStorage.getItem(KEY)
 
-  // Si no existen actividades guardadas
-  if (!data) {
+  if(!data){
 
-    // Guarda las actividades iniciales
-    localStorage.setItem(KEY, JSON.stringify(seedActivities));
+    localStorage.setItem(KEY,JSON.stringify(seedActivities))
 
-    return seedActivities;
+    return seedActivities
+
   }
 
-  // Convierte el texto JSON en objeto
-  return JSON.parse(data);
+  return JSON.parse(data)
 
 }
 
-/*
-Agrega una nueva actividad
-al almacenamiento.
-*/
-export function addActivity(activity) {
+export function addActivity(activity){
 
-  const activities = getAll();
+  const activities=getActivities()
 
-  activities.push({
-    id: Date.now(),
+  const newActivity={
+    id:Date.now(),
     ...activity
-  });
+  }
 
-  localStorage.setItem(KEY, JSON.stringify(activities));
+  activities.push(newActivity)
+
+  localStorage.setItem(KEY,JSON.stringify(activities))
 
 }
