@@ -1,86 +1,55 @@
-/*
-Formulario con validaciones
-y mensajes de error.
-*/
+import { useState } from "react"
+import { createActivity } from "../api/api"
 
-import React,{useState} from "react";
-import {addActivity} from "../services/activitiesService.js";
+function ActivityForm({ reload }) {
 
-export default function ActivityForm(){
+  const [titulo, setTitulo] = useState("")
+  const [descripcion, setDescripcion] = useState("")
+  const [fecha, setFecha] = useState("")
 
-const [title,setTitle]=useState("")
-const [subject,setSubject]=useState("")
-const [date,setDate]=useState("")
+  const handleSubmit = async (e) => {
+    e.preventDefault()
 
-const [message,setMessage]=useState("")
-const [error,setError]=useState("")
+    await createActivity({
+      titulo,
+      descripcion,
+      fecha
+    })
 
-function handleSubmit(e){
+    setTitulo("")
+    setDescripcion("")
+    setFecha("")
 
-e.preventDefault()
+    reload()
+  }
 
-if(!title){
+  return (
+    <form onSubmit={handleSubmit}>
 
-setError("El título es obligatorio")
-return
+      <h2>Crear actividad</h2>
+
+      <input
+        placeholder="Título"
+        value={titulo}
+        onChange={(e) => setTitulo(e.target.value)}
+      />
+
+      <input
+        placeholder="Descripción"
+        value={descripcion}
+        onChange={(e) => setDescripcion(e.target.value)}
+      />
+
+      <input
+        type="date"
+        value={fecha}
+        onChange={(e) => setFecha(e.target.value)}
+      />
+
+      <button type="submit">Crear</button>
+
+    </form>
+  )
 }
 
-if(!date){
-
-setError("La fecha es obligatoria")
-return
-}
-
-setError("")
-
-const newActivity={
-title,
-subject,
-date,
-status:"pending",
-subtasks:[]
-}
-
-addActivity(newActivity)
-
-setMessage("Actividad creada correctamente")
-
-}
-
-return(
-
-<form onSubmit={handleSubmit} className="form">
-
-<input
-type="text"
-placeholder="Titulo"
-value={title}
-onChange={(e)=>setTitle(e.target.value)}
-/>
-
-<input
-type="text"
-placeholder="Materia"
-value={subject}
-onChange={(e)=>setSubject(e.target.value)}
-/>
-
-<input
-type="date"
-value={date}
-onChange={(e)=>setDate(e.target.value)}
-/>
-
-<button type="submit">
-Guardar actividad
-</button>
-
-{error && <p className="error">{error}</p>}
-
-{message && <p className="success">{message}</p>}
-
-</form>
-
-)
-
-}
+export default ActivityForm
