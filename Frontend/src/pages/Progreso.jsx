@@ -1,35 +1,34 @@
-/*
-Vista que muestra estadísticas
-del progreso del usuario.
-*/
+import { useEffect, useState } from "react"
+import { getProgress } from "../services/activitiesService"
 
-import React from "react";
-import {getActivities} from "../services/activitiesService.js";
+function Progreso() {
 
-export default function Progreso(){
+  const [progress, setProgress] = useState({})
 
-  const activities=getActivities()
+  useEffect(() => {
+    loadProgress()
+  }, [])
 
-  const total=activities.length
+  const loadProgress = async () => {
+    const data = await getProgress()
+    setProgress(data)
+  }
 
-  const completadas=activities.filter(a=>a.status==="done").length
-
-  const porcentaje=(completadas/total)*100
-
-  return(
+  return (
 
     <div>
 
-      <h1>Progreso</h1>
+      <h2>Progreso</h2>
 
-      <p>Total actividades: {total}</p>
+      <p>Total: {progress.total}</p>
 
-      <p>Completadas: {completadas}</p>
+      <p>Completadas: {progress.completadas}</p>
 
-      <p>Progreso: {porcentaje.toFixed(0)}%</p>
+      <p>Porcentaje: {progress.porcentaje}%</p>
 
     </div>
 
   )
-
 }
+
+export default Progreso
