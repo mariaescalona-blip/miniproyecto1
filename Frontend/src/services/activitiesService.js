@@ -1,13 +1,20 @@
+/*
+Servicio que conecta React con
+la API Django desplegada en Render
+*/
+
 const API_URL =
-"https://tu-backend.onrender.com/api/activities/"
+"https://miniproyecto1.onrender.com/api/activities/"
+
 
 export async function getActivities(){
 
-const res = await fetch(API_URL)
+const response = await fetch(API_URL)
 
-return res.json()
+return response.json()
 
 }
+
 
 export async function createActivity(activity){
 
