@@ -1,5 +1,6 @@
 /*
-Formulario para crear nuevas actividades.
+Formulario con validaciones
+y mensajes de error.
 */
 
 import React,{useState} from "react";
@@ -7,57 +8,79 @@ import {addActivity} from "../services/activitiesService.js";
 
 export default function ActivityForm(){
 
-  const [title,setTitle]=useState("");
-  const [subject,setSubject]=useState("");
-  const [date,setDate]=useState("");
+const [title,setTitle]=useState("")
+const [subject,setSubject]=useState("")
+const [date,setDate]=useState("")
 
-  function handleSubmit(e){
+const [message,setMessage]=useState("")
+const [error,setError]=useState("")
 
-    e.preventDefault();
+function handleSubmit(e){
 
-    const newActivity={
-      title,
-      subject,
-      date,
-      status:"pending"
-    }
+e.preventDefault()
 
-    addActivity(newActivity)
+if(!title){
 
-    alert("Actividad creada")
+setError("El título es obligatorio")
+return
+}
 
-  }
+if(!date){
 
-  return(
+setError("La fecha es obligatoria")
+return
+}
 
-    <form onSubmit={handleSubmit} className="form">
+setError("")
 
-      <input
-      type="text"
-      placeholder="Titulo"
-      value={title}
-      onChange={(e)=>setTitle(e.target.value)}
-      />
+const newActivity={
+title,
+subject,
+date,
+status:"pending",
+subtasks:[]
+}
 
-      <input
-      type="text"
-      placeholder="Materia"
-      value={subject}
-      onChange={(e)=>setSubject(e.target.value)}
-      />
+addActivity(newActivity)
 
-      <input
-      type="date"
-      value={date}
-      onChange={(e)=>setDate(e.target.value)}
-      />
+setMessage("Actividad creada correctamente")
 
-      <button type="submit">
-        Guardar Actividad
-      </button>
+}
 
-    </form>
+return(
 
-  )
+<form onSubmit={handleSubmit} className="form">
+
+<input
+type="text"
+placeholder="Titulo"
+value={title}
+onChange={(e)=>setTitle(e.target.value)}
+/>
+
+<input
+type="text"
+placeholder="Materia"
+value={subject}
+onChange={(e)=>setSubject(e.target.value)}
+/>
+
+<input
+type="date"
+value={date}
+onChange={(e)=>setDate(e.target.value)}
+/>
+
+<button type="submit">
+Guardar actividad
+</button>
+
+{error && <p className="error">{error}</p>}
+
+{message && <p className="success">{message}</p>}
+
+</form>
+
+)
 
 }
