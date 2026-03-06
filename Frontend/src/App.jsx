@@ -1,66 +1,19 @@
-/*
-Componente principal del sistema.
+import Hoy from "./pages/Hoy"
+import Progreso from "./pages/Progreso"
 
-Aquí se definen todas las rutas de la aplicación.
-*/
+function App() {
 
-import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+  return (
 
-import Hoy from "./pages/Hoy.jsx";
-import CrearActividad from "./pages/CrearActividad.jsx";
-import DetalleActividad from "./pages/DetalleActividad.jsx";
-import Progreso from "./pages/Progreso.jsx";
+    <div>
 
-import "./styles/App.css";
+      <Hoy />
 
-export default function App(){
-
-  return(
-
-    <div className="app-container">
-
-      {/* Barra de navegación */}
-      <nav className="navbar">
-
-        <h2>TaskFlow</h2>
-
-        <div className="nav-links">
-
-          <Link to="/hoy">
-            <button>Hoy</button>
-          </Link>
-
-          <Link to="/crear">
-            <button>Crear Actividad</button>
-          </Link>
-
-          <Link to="/progreso">
-            <button>Progreso</button>
-          </Link>
-
-        </div>
-
-      </nav>
-
-      {/* Definición de rutas */}
-
-      <Routes>
-
-        <Route path="/" element={<Hoy />} />
-
-        <Route path="/hoy" element={<Hoy />} />
-
-        <Route path="/crear" element={<CrearActividad />} />
-
-        <Route path="/actividad/:id" element={<DetalleActividad />} />
-
-        <Route path="/progreso" element={<Progreso />} />
-
-      </Routes>
+      <Progreso />
 
     </div>
 
   )
-
 }
+
+export default App
