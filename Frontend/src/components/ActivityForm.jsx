@@ -6,50 +6,82 @@ function ActivityForm({ reload }) {
   const [titulo, setTitulo] = useState("")
   const [descripcion, setDescripcion] = useState("")
   const [fecha, setFecha] = useState("")
+  const [mensaje, setMensaje] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    await createActivity({
-      titulo,
-      descripcion,
-      fecha
-    })
+    // Validación básica (sirve para la rúbrica)
+    if (!titulo || !fecha) {
+      setMensaje("⚠ El título y la fecha son obligatorios")
+      return
+    }
 
-    setTitulo("")
-    setDescripcion("")
-    setFecha("")
+    try {
 
-    reload()
+      await createActivity({
+        titulo,
+        descripcion,
+        fecha
+      })
+
+      setMensaje("✅ Actividad creada correctamente")
+
+      setTitulo("")
+      setDescripcion("")
+      setFecha("")
+
+      if (reload) {
+        reload()
+      }
+
+    } catch (error) {
+
+      setMensaje("❌ Error al crear la actividad")
+      console.error(error)
+
+    }
+
   }
 
   return (
 
-    <form onSubmit={handleSubmit}>
+    <div className="activity-form">
 
       <h2>Crear Actividad</h2>
 
-      <input
-        placeholder="Título"
-        value={titulo}
-        onChange={(e) => setTitulo(e.target.value)}
-      />
+      {mensaje && <p>{mensaje}</p>}
 
-      <input
-        placeholder="Descripción"
-        value={descripcion}
-        onChange={(e) => setDescripcion(e.target.value)}
-      />
+      <form onSubmit={handleSubmit}>
 
-      <input
-        type="date"
-        value={fecha}
-        onChange={(e) => setFecha(e.target.value)}
-      />
+        <input
+          type="text"
+          placeholder="Título de la actividad"
+          value={titulo}
+          onChange={(e) => setTitulo(e.target.value)}
+        />
 
-      <button>Crear</button>
+        <input
+          type="text"
+          placeholder="Descripción"
+          value={descripcion}
+          onChange={(e) => setDescripcion(e.target.value)}
+        />
 
-    </form>
+        <input
+          type="date"
+          value={fecha}
+          onChange={(e) => setFecha(e.target.value)}
+        />
+
+        <button type="submit">
+          Crear actividad
+        </button>
+
+      </form>
+
+    </div>
+
   )
 }
 
