@@ -1,87 +1,64 @@
 import { useState } from "react"
 import { createActivity } from "../services/activitiesService"
 
-function ActivityForm({ reload }) {
+function ActivityForm({ onCreated }) {
 
   const [titulo, setTitulo] = useState("")
   const [descripcion, setDescripcion] = useState("")
   const [fecha, setFecha] = useState("")
-  const [mensaje, setMensaje] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // Validación básica (sirve para la rúbrica)
-    if (!titulo || !fecha) {
-      setMensaje("⚠ El título y la fecha son obligatorios")
-      return
+    const nuevaActividad = {
+      titulo,
+      descripcion,
+      fecha
     }
 
     try {
 
-      await createActivity({
-        titulo,
-        descripcion,
-        fecha
-      })
+      const activity = await createActivity(nuevaActividad)
 
-      setMensaje("✅ Actividad creada correctamente")
+      if (onCreated) {
+        onCreated(activity)
+      }
 
       setTitulo("")
       setDescripcion("")
       setFecha("")
 
-      if (reload) {
-        reload()
-      }
-
     } catch (error) {
-
-      setMensaje("❌ Error al crear la actividad")
       console.error(error)
-
     }
-
   }
 
   return (
+    <form onSubmit={handleSubmit}>
 
-    <div className="activity-form">
+      <input
+        placeholder="Titulo"
+        value={titulo}
+        onChange={(e)=>setTitulo(e.target.value)}
+      />
 
-      <h2>Crear Actividad</h2>
+      <input
+        placeholder="Descripcion"
+        value={descripcion}
+        onChange={(e)=>setDescripcion(e.target.value)}
+      />
 
-      {mensaje && <p>{mensaje}</p>}
+      <input
+        type="date"
+        value={fecha}
+        onChange={(e)=>setFecha(e.target.value)}
+      />
 
-      <form onSubmit={handleSubmit}>
+      <button type="submit">
+        Crear actividad
+      </button>
 
-        <input
-          type="text"
-          placeholder="Título de la actividad"
-          value={titulo}
-          onChange={(e) => setTitulo(e.target.value)}
-        />
-
-        <input
-          type="text"
-          placeholder="Descripción"
-          value={descripcion}
-          onChange={(e) => setDescripcion(e.target.value)}
-        />
-
-        <input
-          type="date"
-          value={fecha}
-          onChange={(e) => setFecha(e.target.value)}
-        />
-
-        <button type="submit">
-          Crear actividad
-        </button>
-
-      </form>
-
-    </div>
-
+    </form>
   )
 }
 
