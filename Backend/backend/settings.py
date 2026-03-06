@@ -23,6 +23,8 @@ INSTALLED_APPS = [
     "activities",
 ]
 
+ALLOWED_HOSTS = ['*']
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
