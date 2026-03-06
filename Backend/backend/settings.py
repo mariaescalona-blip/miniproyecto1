@@ -78,7 +78,9 @@ DATABASES = {
         conn_max_age=600
     )
 }
-
+DATABASES["default"]["OPTIONS"] = {
+    "sslmode": "require"
+}
 
 # STATIC FILES
 STATIC_URL = "/static/"
