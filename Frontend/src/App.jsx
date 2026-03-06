@@ -1,66 +1,66 @@
 /*
-Componente principal de la aplicación.
+Componente principal del sistema.
 
-Aquí se define:
-
-- La estructura general
-- Las rutas de navegación
+Aquí se definen todas las rutas de la aplicación.
 */
 
 import React from "react";
+import { Routes, Route, Link } from "react-router-dom";
 
-// Importamos el sistema de rutas
-import { Routes, Route } from "react-router-dom";
-
-// Importamos las páginas del sistema
 import Hoy from "./pages/Hoy.jsx";
 import CrearActividad from "./pages/CrearActividad.jsx";
+import DetalleActividad from "./pages/DetalleActividad.jsx";
+import Progreso from "./pages/Progreso.jsx";
 
-/*
-Componente de ejemplo para mostrar
-detalle de una actividad específica.
-*/
-function DetalleActividad() {
-  return <h2>Detalle de actividad</h2>;
-}
+import "./styles/App.css";
 
-/*
-Componente para visualizar
-el progreso del usuario.
-*/
-function Progreso() {
-  return <h2>Vista de progreso</h2>;
-}
+export default function App(){
 
-/*
-Componente principal del sistema.
-*/
-export default function App() {
+  return(
 
-  return (
+    <div className="app-container">
 
-    <div>
+      {/* Barra de navegación */}
+      <nav className="navbar">
 
-      {/* Sistema de rutas SPA */}
+        <h2>TaskFlow</h2>
+
+        <div className="nav-links">
+
+          <Link to="/hoy">
+            <button>Hoy</button>
+          </Link>
+
+          <Link to="/crear">
+            <button>Crear Actividad</button>
+          </Link>
+
+          <Link to="/progreso">
+            <button>Progreso</button>
+          </Link>
+
+        </div>
+
+      </nav>
+
+      {/* Definición de rutas */}
 
       <Routes>
 
-        {/* Ruta principal */}
         <Route path="/" element={<Hoy />} />
 
-        {/* Ruta para crear actividad */}
+        <Route path="/hoy" element={<Hoy />} />
+
         <Route path="/crear" element={<CrearActividad />} />
 
-        {/* Ruta dinámica para ver actividad */}
         <Route path="/actividad/:id" element={<DetalleActividad />} />
 
-        {/* Ruta para ver progreso */}
         <Route path="/progreso" element={<Progreso />} />
 
       </Routes>
 
     </div>
 
-  );
+  )
 
 }
