@@ -1,12 +1,40 @@
+<!--
+Archivo principal HTML de la aplicación.
+Este archivo es la base donde React cargará toda la interfaz.
+-->
+
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Miniproyecto1 - Frontend</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+
+  <!-- Codificación de caracteres -->
+  <meta charset="UTF-8" />
+
+  <!-- Icono de la aplicación -->
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+  <!-- Permite que el diseño sea responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Título que aparece en el navegador -->
+  <title>Mini Proyecto - Gestión de Actividades</title>
+
+</head>
+
+<body>
+
+  <!--
+  Este div es el contenedor principal.
+  React insertará aquí toda la aplicación.
+  -->
+  <div id="root"></div>
+
+  <!--
+  Este script carga el archivo main.jsx.
+  main.jsx es el punto de entrada de la aplicación React.
+  -->
+  <script type="module" src="/src/main.jsx"></script>
+
+</body>
 </html>
