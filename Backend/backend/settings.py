@@ -1,14 +1,14 @@
 import os
 from pathlib import Path
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-key'
+SECRET_KEY = 'django-secret-key'
 
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -24,7 +24,6 @@ INSTALLED_APPS = [
     'activities',
 ]
 
-
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -38,7 +37,6 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'backend.urls'
 
 CORS_ALLOW_ALL_ORIGINS = True
-
 
 TEMPLATES = [
     {
@@ -57,20 +55,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-
-# 🔵 BASE DE DATOS POSTGRESQL
+# 🔵 SUPABASE POSTGRESQL
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'miniproyecto',
-        'USER': 'postgres',
-        'PASSWORD': 'admin123',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.parse(
+        "postgresql://postgres:adminproyecto123@db.ucpfienyknheehsaccwu.supabase.co:5432/postgres"
+    )
 }
-
 
 AUTH_PASSWORD_VALIDATORS = []
 
@@ -81,7 +72,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 STATIC_URL = '/static/'
 
