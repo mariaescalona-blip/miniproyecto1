@@ -28,9 +28,7 @@ function SubTaskForm({ activityId, reload }) {
         onChange={(e) => setTitulo(e.target.value)}
       />
 
-      <button>
-        Agregar
-      </button>
+      <button>Agregar</button>
 
     </form>
 
