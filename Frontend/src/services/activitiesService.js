@@ -1,42 +1,55 @@
+/*
+Servicio encargado de manejar
+las actividades del sistema.
 
-import { seedActivities } from '../data/activities.js'
+Actualmente usa localStorage
+para simular una base de datos.
+*/
 
-const KEY = 'mp1_activities_v1'
+import { seedActivities } from "../data/activities.js";
 
-function readStorage() {
-  try {
-    const raw = localStorage.getItem(KEY)
-    return raw ? JSON.parse(raw) : null
-  } catch (e) {
-    return null
-  }
-}
+/*
+Clave usada en localStorage
+para guardar las actividades.
+*/
+const KEY = "activities";
 
-function initIfEmpty() {
-  if (!readStorage()) {
-    localStorage.setItem(KEY, JSON.stringify(seedActivities))
-  }
-}
-
+/*
+Obtiene todas las actividades
+guardadas en el navegador.
+*/
 export function getAll() {
-  initIfEmpty()
-  return JSON.parse(localStorage.getItem(KEY)) || []
+
+  // Intenta leer los datos
+  let data = localStorage.getItem(KEY);
+
+  // Si no existen actividades guardadas
+  if (!data) {
+
+    // Guarda las actividades iniciales
+    localStorage.setItem(KEY, JSON.stringify(seedActivities));
+
+    return seedActivities;
+  }
+
+  // Convierte el texto JSON en objeto
+  return JSON.parse(data);
+
 }
 
+/*
+Agrega una nueva actividad
+al almacenamiento.
+*/
 export function addActivity(activity) {
-  const items = getAll()
-  const newAct = { id: String(Date.now()), ...activity }
-  items.push(newAct)
-  localStorage.setItem(KEY, JSON.stringify(items))
-  return newAct
-}
 
-export function updateActivity(id, patch) {
-  const items = getAll().map(a => a.id === id ? { ...a, ...patch } : a)
-  localStorage.setItem(KEY, JSON.stringify(items))
-  return items
-}
+  const activities = getAll();
 
-export function seedReset() {
-  localStorage.setItem(KEY, JSON.stringify(seedActivities))
+  activities.push({
+    id: Date.now(),
+    ...activity
+  });
+
+  localStorage.setItem(KEY, JSON.stringify(activities));
+
 }
