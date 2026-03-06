@@ -1,36 +1,32 @@
 import { useEffect, useState } from "react"
 import { getActivities } from "../services/activitiesService"
-import ActivityList from "../components/ActivityList"
-import ActivityForm from "../components/ActivityForm"
+import ActivityCard from "../components/ActivityCard"
 
 function Hoy() {
 
   const [activities, setActivities] = useState([])
 
-  const loadActivities = async () => {
-    const data = await getActivities()
-    setActivities(data)
-  }
-
   useEffect(() => {
+
+    const loadActivities = async () => {
+      const data = await getActivities()
+      setActivities(data)
+    }
+
     loadActivities()
+
   }, [])
 
   return (
-
     <div>
 
-      <h1>Gestor de Actividades</h1>
+      <h2>Actividades</h2>
 
-      <ActivityForm reload={loadActivities} />
-
-      <ActivityList
-        activities={activities}
-        reload={loadActivities}
-      />
+      {activities.map((act) => (
+        <ActivityCard key={act.id} activity={act} />
+      ))}
 
     </div>
-
   )
 }
 
