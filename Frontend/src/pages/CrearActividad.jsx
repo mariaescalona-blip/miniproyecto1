@@ -1,22 +1,16 @@
-/*
-Página que permite registrar una nueva actividad.
-*/
+import ActivityForm from "../components/ActivityForm"
 
-import React from "react";
-import ActivityForm from "../components/ActivityForm.jsx";
+function CrearActividad() {
 
-export default function CrearActividad(){
-
-  return(
-
+  return (
     <div>
 
-      <h1>Crear Actividad</h1>
+      <h2>Crear Actividad</h2>
 
-      <ActivityForm/>
+      <ActivityForm />
 
     </div>
-
   )
-
 }
+
+export default CrearActividad
