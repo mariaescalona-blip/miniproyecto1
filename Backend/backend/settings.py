@@ -68,15 +68,13 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 
 DATABASES = {
-
-'default': {
-
-'ENGINE': 'django.db.backends.sqlite3',
-
-'NAME': BASE_DIR / 'db.sqlite3',
-
-}
-
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'miniproyecto',
+        'CLIENT': {
+            'host': 'mongodb+srv://admin:admin123@cluster0.5udryz2.mongodb.net/miniproyecto?retryWrites=true&w=majority'
+        }
+    }
 }
 
 
