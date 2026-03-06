@@ -1,19 +1,28 @@
-import React from 'react'
-import ActivityForm from '../components/ActivityForm.jsx'
-import { addActivity } from '../services/activitiesService.js'
-import { useNavigate } from 'react-router-dom'
+/*
+Página encargada de registrar
+una nueva actividad en el sistema.
+*/
+
+import React from "react";
+
+import ActivityForm from "../components/ActivityForm.jsx";
 
 export default function CrearActividad() {
-  const navigate = useNavigate()
-
-  function handleCreate(data) {
-    addActivity(data)
-    // luego de guardar vamos a "Hoy"
-    navigate('/')
-  }
 
   return (
+
     <div>
+
+      <h1>Crear Actividad</h1>
+
+      {/* Componente que contiene el formulario */}
+      <ActivityForm />
+
+    </div>
+
+  );
+
+}<div>
       <h1>Crear Actividad</h1>
       <ActivityForm onSubmit={handleCreate} />
     </div>
