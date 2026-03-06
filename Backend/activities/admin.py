@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Activity
+from .models import Activity, SubTask
 
-# Registramos el modelo Activity para poder administrarlo desde el panel admin
+
 admin.site.register(Activity)
+admin.site.register(SubTask)
