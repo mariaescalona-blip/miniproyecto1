@@ -8,24 +8,24 @@ from .serializers import ActivitySerializer, SubTaskSerializer
 
 class ActivityViewSet(viewsets.ModelViewSet):
 
-    queryset = Activity.objects.all().order_by('-creado')
+    queryset = Activity.objects.all()
+
     serializer_class = ActivitySerializer
 
 
 class SubTaskViewSet(viewsets.ModelViewSet):
 
     queryset = SubTask.objects.all()
+
     serializer_class = SubTaskSerializer
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def progreso(request):
 
-    total = Activity.objects.count()
+    total = SubTask.objects.count()
 
-    completadas = Activity.objects.filter(
-        estado='completada'
-    ).count()
+    completadas = SubTask.objects.filter(completada=True).count()
 
     porcentaje = 0
 
