@@ -7,6 +7,7 @@ from .views import ActivityViewSet, SubTaskViewSet, progreso
 router = DefaultRouter()
 
 router.register(r'activities', ActivityViewSet)
+
 router.register(r'subtasks', SubTaskViewSet)
 
 
@@ -14,5 +15,6 @@ urlpatterns = [
 
     path('', include(router.urls)),
 
-    path('progreso/', progreso),
+    path('progreso/', progreso)
+
 ]
