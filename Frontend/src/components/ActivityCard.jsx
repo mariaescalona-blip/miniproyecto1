@@ -1,42 +1,40 @@
 /*
-Componente que representa una tarjeta
-con la información de una actividad.
+Tarjeta que muestra información
+de una actividad.
 */
 
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export default function ActivityCard({activity}){
 
-  return(
+return(
 
-    <div className="card">
+<div className="card">
 
-      {/* Título */}
-      <h3>{activity.title}</h3>
+<h3>{activity.title}</h3>
 
-      {/* Materia */}
-      <p>Materia: {activity.subject}</p>
+<p>Materia: {activity.subject}</p>
 
-      {/* Fecha */}
-      <p>Fecha: {activity.date}</p>
+<p>Fecha: {activity.date}</p>
 
-      {/* Estado */}
-      <p>
-        Estado: 
-        {activity.status === "done"
-          ? " ✅ Completada"
-          : " ⏳ Pendiente"}
-      </p>
+<p>
+Estado:
+{activity.status==="done"
+?" ✅ Completada"
+:" ⏳ Pendiente"}
+</p>
 
-      {/* Botón para ver detalle */}
+<p>
+Subtareas: {activity.subtasks?.length || 0}
+</p>
 
-      <Link to={`/actividad/${activity.id}`}>
-        <button>Ver detalle</button>
-      </Link>
+<Link to={`/actividad/${activity.id}`}>
+<button>Ver detalle</button>
+</Link>
 
-    </div>
+</div>
 
-  )
+)
 
 }
