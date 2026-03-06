@@ -1,14 +1,18 @@
 from pathlib import Path
+import os
 import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-secret-key"
+# SECURITY
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-key")
 
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+
+# APPLICATIONS
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -23,8 +27,8 @@ INSTALLED_APPS = [
     "activities",
 ]
 
-ALLOWED_HOSTS = ['*']
 
+# MIDDLEWARE
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -36,35 +40,50 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
+# CORS
 CORS_ALLOW_ALL_ORIGINS = True
 
+
+# URLS
 ROOT_URLCONF = "backend.urls"
 
+
+# TEMPLATES
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "APP_DIRS": True,
-        "OPTIONS": {"context_processors": [
-            "django.template.context_processors.debug",
-            "django.template.context_processors.request",
-            "django.contrib.auth.context_processors.auth",
-            "django.contrib.messages.context_processors.messages",
-        ]},
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
     },
 ]
 
+
+# WSGI
 WSGI_APPLICATION = "backend.wsgi.application"
 
-import dj_database_url
+
+# DATABASE (PostgreSQL Supabase / Render)
 
 DATABASES = {
-    "default": dj_database_url.parse(
-        "postgresql://postgres:adminproyecto123@db.ucpfienyknheehsaccwu.supabase.co:5432/postgres",
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL"),
         conn_max_age=600
     )
 }
-STATIC_URL = "/static/"
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# STATIC FILES
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+
 # DEFAULT PRIMARY KEY
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
