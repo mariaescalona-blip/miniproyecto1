@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { createActivity } from "../api/api"
+import { createActivity } from "../services/activitiesService"
 
 function ActivityForm({ reload }) {
 
@@ -24,9 +24,8 @@ function ActivityForm({ reload }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
 
-      <h2>Crear actividad</h2>
+    <form onSubmit={handleSubmit}>
 
       <input
         placeholder="Título"
@@ -46,9 +45,12 @@ function ActivityForm({ reload }) {
         onChange={(e) => setFecha(e.target.value)}
       />
 
-      <button type="submit">Crear</button>
+      <button type="submit">
+        Crear actividad
+      </button>
 
     </form>
+
   )
 }
 
