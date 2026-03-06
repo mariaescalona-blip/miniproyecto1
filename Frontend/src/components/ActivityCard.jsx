@@ -1,40 +1,64 @@
-/*
-Tarjeta que muestra información
-de una actividad.
-*/
+import { toggleSubTask, deleteActivity } from "../services/activitiesService"
+import SubTaskForm from "./SubTaskForm"
 
-import React from "react";
-import {Link} from "react-router-dom";
+function ActivityCard({ activity, reload }) {
 
-export default function ActivityCard({activity}){
+  const toggleTask = async (task) => {
+    await toggleSubTask(task.id, !task.completada)
+    reload()
+  }
 
-return(
+  const eliminar = async () => {
+    await deleteActivity(activity.id)
+    reload()
+  }
 
-<div className="card">
+  return (
 
-<h3>{activity.title}</h3>
+    <div className="card">
 
-<p>Materia: {activity.subject}</p>
+      <h3>{activity.titulo}</h3>
 
-<p>Fecha: {activity.date}</p>
+      <p>{activity.descripcion}</p>
 
-<p>
-Estado:
-{activity.status==="done"
-?" ✅ Completada"
-:" ⏳ Pendiente"}
-</p>
+      <ul>
 
-<p>
-Subtareas: {activity.subtasks?.length || 0}
-</p>
+        {activity.subtasks?.map(task => (
 
-<Link to={`/actividad/${activity.id}`}>
-<button>Ver detalle</button>
-</Link>
+          <li key={task.id}>
 
-</div>
+            <span
+              onClick={() => toggleTask(task)}
+              style={{
+                textDecoration: task.completada
+                  ? "line-through"
+                  : "none",
+                cursor: "pointer"
+              }}
+            >
 
-)
+              {task.titulo}
 
+            </span>
+
+          </li>
+
+        ))}
+
+      </ul>
+
+      <SubTaskForm
+        activityId={activity.id}
+        reload={reload}
+      />
+
+      <button onClick={eliminar}>
+        Eliminar actividad
+      </button>
+
+    </div>
+
+  )
 }
+
+export default ActivityCard
