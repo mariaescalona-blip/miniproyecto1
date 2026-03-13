@@ -1,7 +1,4 @@
 from django.contrib import admin
-from .models import Activity, SubTask
-
+from .models import Activity
 
 admin.site.register(Activity)
-
-admin.site.register(SubTask)
